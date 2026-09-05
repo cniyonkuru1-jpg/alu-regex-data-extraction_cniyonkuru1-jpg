@@ -10,6 +10,7 @@ def read_input(filepath):
 EMAIL_PATTERN = r"[a-z]+@[a-z.]+[a-z]+"
 CREDIT_CARD_PATTERN = r"(\b(?:\d{4}[- ]?){3}\d{4}\b)"
 URL_PATTERN = r"https?://[^\s<]*[^\s<.]"
+PHONE_PATTERN = r"(\(?\+?\d[\d ()-]{8,}\d)"
 
 
 def extract_emails(text):
@@ -17,6 +18,9 @@ def extract_emails(text):
 
 def extract_urls(text):
     return re.findall(URL_PATTERN, text)
+
+def extract_phones(text):
+    return re.findall(PHONE_PATTERN, text)
 
 def extract_credit_cards(text):
     raw_matches = re.findall(CREDIT_CARD_PATTERN, text)
@@ -64,6 +68,7 @@ def main():
     raw_text = read_input("input/raw-text.txt")
     emails = extract_emails(raw_text)
     urls = extract_urls(raw_text)
+    phones = extract_phones(raw_text)
     credit_cards = extract_credit_cards(raw_text)
     masked_cards = []
 
@@ -81,6 +86,7 @@ def main():
         "credit_cards": masked_cards,
         "urls": urls,
         "classified_emails": classified,
+        "phones": phones,
     }
 
     with open("output/sample-output.json", "w", encoding="utf-8") as f:
@@ -90,6 +96,7 @@ def main():
     print(f"Emails found: {len(emails)}")
     print(f"Credit cards found: {len(credit_cards)}")
     print(f"URLs found: {len(urls)}")
+    print(f"Phones found: {len(phones)}")
 
 
 if __name__ == "__main__":
