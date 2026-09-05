@@ -80,6 +80,7 @@ def main():
         "emails": emails,
         "credit_cards": masked_cards,
         "urls": urls,
+        "classified_emails": classified,
     }
 
     with open("output/sample-output.json", "w", encoding="utf-8") as f:
@@ -88,6 +89,7 @@ def main():
     print("Extraction complete. Results saved to output/sample-output.json")
     print(f"Emails found: {len(emails)}")
     print(f"Credit cards found: {len(credit_cards)}")
+    print(f"URLs found: {len(urls)}")
 
 
 if __name__ == "__main__":

@@ -11,5 +11,16 @@
     "https://www.alueducation.com/programs/software-engineering",
     "https://techpulseweekly.com",
     "https://techpulseweekly.com/unsubscribe?user=142891"
-  ]
+  ],
+  "classified_emails": {
+    "ALU Student": [
+      "admissions@alueducation.com"
+    ],
+    "ALU Alumni": [
+      "network@alumni.alueducation.com"
+    ],
+    "ALU SI": [
+      "coordinator@si.alueducation.com"
+    ]
+  }
 }
