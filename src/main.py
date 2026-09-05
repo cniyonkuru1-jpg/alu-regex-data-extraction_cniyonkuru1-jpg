@@ -9,11 +9,14 @@ def read_input(filepath):
 
 EMAIL_PATTERN = r"[a-z]+@[a-z.]+[a-z]+"
 CREDIT_CARD_PATTERN = r"(\b(?:\d{4}[- ]?){3}\d{4}\b)"
+URL_PATTERN = r"https?://[^\s<]*[^\s<.]"
 
 
 def extract_emails(text):
     return re.findall(EMAIL_PATTERN, text)
 
+def extract_urls(text):
+    return re.findall(URL_PATTERN, text)
 
 def extract_credit_cards(text):
     raw_matches = re.findall(CREDIT_CARD_PATTERN, text)
@@ -25,11 +28,9 @@ def extract_credit_cards(text):
 
 
 def is_valid_luhn(card_number):
-
     card_number = card_number.replace(" ", "").replace("-", "")
-    digits = card_number[::-1] 
+    digits = card_number[::-1]
     total = 0
-
     for index, digit in enumerate(digits):
         num = int(digit)
         if index % 2 == 1:
@@ -55,13 +56,14 @@ def classify_alu_email(email):
 
 
 def mask_credit_card(card_number):
-    last_four = card_number[-4:]  
-    return "the card last four digits:" + last_four     
+    last_four = card_number[-4:]
+    return "the card last four digits:" + last_four
 
 
 def main():
     raw_text = read_input("input/raw-text.txt")
     emails = extract_emails(raw_text)
+    urls = extract_urls(raw_text)
     credit_cards = extract_credit_cards(raw_text)
     masked_cards = []
 
@@ -77,6 +79,7 @@ def main():
     results = {
         "emails": emails,
         "credit_cards": masked_cards,
+        "urls": urls,
     }
 
     with open("output/sample-output.json", "w", encoding="utf-8") as f:
